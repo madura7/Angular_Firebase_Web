@@ -1,0 +1,37 @@
+<p>user-list works!</p>
+
+<table>
+  <thead>
+    <th>User Id</th>
+    <th>User Name</th>
+    <th>Email</th>
+    <th>Password</th>
+    <th>User Role</th>
+  </thead>
+  <tbody>
+    <tr *ngFor="let user of users">
+      <td>{{user.userId}}</td>
+      <td>{{user.userName}}</td>
+      <td>{{user.email}}</td>
+      <td>{{user.password}}</td>
+      <td>{{user.userRole}}</td>
+      <td>
+        <button (click)="delete(user.userId)">Delete</button>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<br>
+<h1 *ngIf="authenticationService.userData | async">Hello {{ (authenticationService.userData | async)?.email }}</h1>
+
+<div *ngIf="!(authenticationService.userData | async)">
+  <input type="text" [(ngModel)]="email" placeholder="email">
+  <input type="password" [(ngModel)]="password" placeholder="password">
+
+  <button (click)="signUp()">Sign Up</button>
+
+  <button (click)="signIn()">Login</button>
+</div>
+
+<button (click)="signOut()" *ngIf="authenticationService.userData | async">Logout</button>
